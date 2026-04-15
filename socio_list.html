@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Socios — Mi Biblioteca{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="page-title">
+    <span>Comunidad</span>
+    Socios
+  </div>
+  <a href="/socios/nuevo/" class="btn btn-primary">
+    + Añadir Socio
+  </a>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-card">
+    <div class="stat-label">Socios registrados</div>
+    <div class="stat-value">{{ socios|length }}</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-toolbar">
+    <h2>Todos los socios</h2>
+  </div>
+  <div class="table-wrap">
+    {% if socios %}
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for socio in socios %}
+        <tr>
+          <td>
+            <span class="book-title">{{ socio.nombre }}</span>
+          </td>
+          <td style="color: #7C5C3A;">{{ socio.email|default:"—" }}</td>
+          <td>{{ socio.telefono|default:"—" }}</td>
+          <td>
+            <span class="badge badge-green">Activo</span>
+          </td>
+          <td style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a href="/socios/{{ socio.id }}/editar/" class="btn btn-outline">Editar</a>
+            <a href="/socios/{{ socio.id }}/eliminar/" class="btn btn-danger">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+      <div class="icon">👥</div>
+      <p>No hay socios registrados todavía.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

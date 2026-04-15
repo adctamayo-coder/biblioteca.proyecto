@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Préstamos — Mi Biblioteca{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="page-title">
+    <span>Circulación</span>
+    Préstamos
+  </div>
+  <a href="/prestamos/nuevo/" class="btn btn-primary">
+    + Nuevo Préstamo
+  </a>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-card">
+    <div class="stat-label">Préstamos activos</div>
+    <div class="stat-value">{{ prestamos|length }}</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-toolbar">
+    <h2>Historial de préstamos</h2>
+  </div>
+  <div class="table-wrap">
+    {% if prestamos %}
+    <table>
+      <thead>
+        <tr>
+          <th>Libro</th>
+          <th>Socio</th>
+          <th>Fecha préstamo</th>
+          <th>Fecha devolución</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for prestamo in prestamos %}
+        <tr>
+          <td>
+            <span class="book-title">{{ prestamo.libro }}</span>
+          </td>
+          <td>
+            <span class="author-name">{{ prestamo.socio }}</span>
+          </td>
+          <td>{{ prestamo.fecha_prestamo }}</td>
+          <td>{{ prestamo.fecha_devolucion|default:"—" }}</td>
+          <td>
+            {% if prestamo.devuelto %}
+              <span class="badge badge-green">Devuelto</span>
+            {% else %}
+              <span class="badge badge-red">Pendiente</span>
+            {% endif %}
+          </td>
+          <td style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a href="/prestamos/{{ prestamo.id }}/editar/" class="btn btn-outline">Editar</a>
+            <a href="/prestamos/{{ prestamo.id }}/eliminar/" class="btn btn-danger">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+      <div class="icon">🔖</div>
+      <p>No hay préstamos registrados todavía.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

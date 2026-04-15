@@ -1,0 +1,18 @@
+{% extends 'biblioteca/base.html' %}
+
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-success text-white">
+        <h3 class="mb-0">Registrar Nuevo Socio</h3>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <hr>
+            <button type="submit" class="btn btn-success w-100">Guardar Socio</button>
+            <a href="{% url 'socio_list' %}" class="btn btn-link w-100 mt-2">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

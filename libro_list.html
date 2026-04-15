@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Libros — Mi Biblioteca{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="page-title">
+    <span>Colección</span>
+    Libros
+  </div>
+  <a href="/libros/nuevo/" class="btn btn-primary">
+    + Añadir Libro
+  </a>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-card">
+    <div class="stat-label">Total de libros</div>
+    <div class="stat-value">{{ libros|length }}</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-toolbar">
+    <h2>Todos los libros</h2>
+  </div>
+  <div class="table-wrap">
+    {% if libros %}
+    <table>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Año</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for libro in libros %}
+        <tr>
+          <td>
+            <span class="book-title">{{ libro.titulo }}</span>
+          </td>
+          <td>
+            <span class="author-name">{{ libro.autor }}</span>
+          </td>
+          <td>
+            <span class="badge badge-year">{{ libro.anio }}</span>
+          </td>
+          <td style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a href="/libros/{{ libro.id }}/editar/" class="btn btn-outline">Editar</a>
+            <a href="/libros/{{ libro.id }}/eliminar/" class="btn btn-danger">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+      <div class="icon">📖</div>
+      <p>No hay libros en la colección todavía.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}{% if libro %}Editar Libro{% else %}Nuevo Libro{% endif %} — Mi Biblioteca{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="page-title">
+    <span>Libros</span>
+    {% if libro %}Editar libro{% else %}Nuevo libro{% endif %}
+  </div>
+  <a href="/libros/" class="btn btn-outline">← Volver</a>
+</div>
+
+<div class="form-card">
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label class="form-label" for="id_titulo">Título</label>
+      <input
+        type="text"
+        id="id_titulo"
+        name="titulo"
+        class="form-control"
+        value="{{ libro.titulo|default:'' }}"
+        placeholder="Ej. Cien años de soledad"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="id_autor">Autor</label>
+      <input
+        type="text"
+        id="id_autor"
+        name="autor"
+        class="form-control"
+        value="{{ libro.autor|default:'' }}"
+        placeholder="Ej. Gabriel García Márquez"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="id_anio">Año de publicación</label>
+      <input
+        type="number"
+        id="id_anio"
+        name="anio"
+        class="form-control"
+        value="{{ libro.anio|default:'' }}"
+        placeholder="Ej. 1967"
+        min="1000"
+        max="2099"
+        required
+      >
+    </div>
+
+    <div style="display:flex; gap:10px; padding-top:0.5rem;">
+      <button type="submit" class="btn btn-primary">
+        {% if libro %}Guardar cambios{% else %}Añadir libro{% endif %}
+      </button>
+      <a href="/libros/" class="btn btn-outline">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

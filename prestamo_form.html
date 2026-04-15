@@ -1,0 +1,23 @@
+{% extends 'biblioteca/base.html' %}
+
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <!-- Color azul (info) para diferenciarlo de Libros y Socios -->
+    <div class="card-header bg-info text-white">
+        <h3 class="mb-0">Registrar Nuevo Préstamo</h3>
+    </div>
+    <div class="card-body">
+        <p class="text-muted small">Selecciona el libro y el socio para registrar la salida.</p>
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Django generará aquí los menús desplegables de libros y socios -->
+            {{ form.as_p }}
+            
+            <hr>
+            <button type="submit" class="btn btn-info text-white w-100">Confirmar Préstamo</button>
+            <a href="{% url 'prestamo_list' %}" class="btn btn-link w-100 mt-2 text-decoration-none">Ver todos los préstamos</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
